@@ -1,0 +1,675 @@
+\documentclass[12pt, reqno]{amsart}
+
+
+
+%% Packages
+
+\usepackage[latin1]{inputenc}
+\usepackage{latexsym}
+\usepackage{amsfonts}
+\usepackage{amsmath,amssymb}
+\usepackage{setspace}
+\usepackage{graphicx}
+\usepackage{fullpage}
+
+
+%% Numbering issues
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{remark}[theorem]{Remark}
+\numberwithin{equation}{section}
+
+%\newenvironment{proof}{\noindent {\bf Proof }}{\hfill  $\Box$ \medskip}
+
+
+%% New Commands
+
+\newcommand{\dR}{{\mathbb R}}
+\newcommand{\dN}{{\mathbb N}}
+\newcommand{\dQ}{{\mathbb Q}}
+\newcommand{\vsp}{\vspace{0.5cm}}
+\newcommand{\tab}{\hspace{1cm}}
+\newcommand{\tabb}{\hspace*{1cm}}
+
+
+
+\begin{document}
+
+%%
+%% Preamble: Information that is used to make the title, author, and abstract go here.
+%%
+
+\title{Metric Spaces}
+
+
+
+\author{Vu Tuong Vi Nguyen}
+
+
+
+\begin{abstract}
+In this project, we will study Metric Spaces and some of their interesting properties. Specifically, we are interested to learn the topological properties of metric spaces including openness, closeness, compactness, connectedness, and more.
+\end{abstract}
+
+\maketitle
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+
+\doublespacing
+
+\section{Introduction}
+    \tabb Metric Space was first introduced by the French mathematician, Mauri Frechet, in his assertion on Functional Analysis in 1905. At that time, every space was introduced and studied with its own notions of convergence. Frechet had proved that many of those were examples of metric spaces. Therefore, proving the metric axioms also gave the same results in other instances. \\
+\tabb However, it was Felix Hausdorff, a German mathematician, who further developed this concept and arranged it in proper order. Hausdorff is known as one of the founding fathers of modern topology. Hausdorff Space is a type of topological space. Besides, a famous work of Hausdorff was the list "separation axioms" for topological space which was introduced in "Elements of Set Theory" in 1914.\\
+\tabb Metric spaces are abstract spaces generalizing the notion of distance which are widely used in geometry and limit related problems. They are general enough so that many of their properties can be applied to other mathematical fields, but they are also specific enough to be proved.\\
+\tabb Therefore, in this study, we find multiple familiar definitions and theories. They are not simply repeated; indeed, they are performed in a more abstract way.\\
+
+\section{Definition of Metric Spaces}
+
+    \begin{definition} \cite{s1}
+        A metric space is a set $X$ together with a function $\rho: X \times X \longrightarrow \dR$ (called the metric of $X$) which satisfies the following properties for all $x, y, z \in X$:
+        \vsp\\
+        \hspace*{1cm} POSITIVE DEFINITE \hspace{1cm} $\rho(x, y) \geq 0$ with $\rho(x, y) = 0$ if and only if $x = y$, \\
+        \hspace*{2.6cm} SYMMETRIC \hspace{1cm} $\rho(x, y) = \rho(y, x)$, \\
+        \hspace*{0.2cm} TRIANGLE INEQUALITY \hspace{1cm} $\rho(x, y) \leq \rho(x, z) +\rho(z, y)$.
+        \vsp\\
+        {[Notice that by definition, $\rho(x, y)$ is finite valued for all $x, y \in X$.]}\\
+    \end{definition}
+    
+    Indeed, we have encountered metric spaces in early Mathematics topics. Therefore, we begin with some familiar examples of metric spaces.
+    
+    \begin{example}
+        Consider set $S$ with the cardinality $|S|$\\
+        Case 1: $|S| =  1$\\
+        \tabb Set $S$ with $\rho(x,y)=0$ represent a distance is a metric space.
+        \begin{proof}
+        Positive definite: Because the distance from a point to itself is 0, $\rho(x,y)$ passes this condition.\\
+        Symmetric: Similarly to the above explanation, $\rho(x,y)$ also passes this condition\\
+        Triangle inequality: Since $S = \{a\}$, the triangle inequality holds trivially.
+        \end{proof}
+        Case 2: $|S| = 2$\\
+        \tabb Set $S = \{a, b\}$ is a metric space with the function $\rho(x, y)=0$ when $x=y,$ $\rho(x, y)=r>$ when $x\neq y$, defines the distance on $S$
+        \begin{proof}
+        Positive definite: Since a distance is always non-negative, $\rho(a, b) \geq 0$ where ${\rho(a, b) = 0 \iff a = b}$\\
+        Symmetric: Because the distance from $a$ to $b$ is the same as the distance from $b$ to $a$, so $\rho(a, b) = \rho(b, a)$\\
+        Triangle inequality: Since $S = \{a, b\}$, the triangle inequality holds trivially.
+        \end{proof}
+        
+        Case 3: $|S| = 3$\\
+        \tabb Let $S = \{a, b, c\}$\\
+        Define that $\rho(a, b) = 2$, $\rho(a, c) = \frac{1}{2}$, and $\rho(c, b) = \frac{1}{2}$\\
+        Then $\rho(a, b) > \rho(a, c) + \rho(c, b)$, which does not satisfy the triangle inequality.
+        Therefore, this is not a metric space.
+    \end{example}
+
+    That is a simple example of a metric space.  Let's analyze some common examples to have a better understanding of metric spaces.
+    \begin{example} \label{norm-induced metric}
+        $\dR^2$ is a metric space with the function $\rho({\bf x}, {\bf y}) = \sqrt{x^2+y^2}$ where $x=x_1-x_0$, $y=y_1-y_0$ for any two points ${\bf x}=(x_0,y_0), {\bf y}=(x_1, y_1) \in \dR^2$
+        \begin{proof} 
+        Note that this example is the distance of two points in $\dR^2$. Therefore, it is evident that metric spaces generalize the notion of distance.\\
+        Positive definite: Since $\sqrt{x^2+y^2} \geq 0 \hspace{1ex}\forall {\bf x}=(x_0,y_0), {\bf y}=(x_1, y_1) \in \dR^2$, so $\rho({\bf x}, {\bf y}) \geq 0$ where ${\rho({\bf x}, {\bf y}) = 0 \iff x_0=x_1 \text{and} y_0 = y_1}$ that is when ${\bf x}=(x_0,y_0), {\bf y}=(x_1, y_1)$ are the same point.\\
+        Symmetric: By the commutativity of addition, ${x^2 + y^2 = y^2 + x^2}$. Therefore, ${\rho({\bf x}, {\bf y}) = \rho({\bf y},{\bf x})}$\\
+        Triangle inequality: Let ${\bf z}=(x_2, y_2) \in \dR^2$ be another point in $\dR^2$. Because these 3 points form a triangle in $\dR^2$, we have:
+        \begin{align*}
+        \rho({\bf x}, {\bf z}) + \rho({\bf z}, {\bf y}) &= \sqrt{(x_0-x_3)^2 + (y_0-y_3)^2} + \sqrt{(x_2-x_3)^2 + (y_2-y_3)^2} \\
+                                              &\geq \sqrt{(x_0-x_1)^2+(y_0-y_1)^2}\\
+                                              &= \rho({\bf x}, {\bf y})
+        \end{align*}
+        \tabb Hence, $\rho({\bf x}, {\bf y}) \leq \rho({\bf x}, {\bf z}) + \rho({\bf z}, {\bf y})$
+        \end{proof}
+    \end{example}
+\pagebreak
+    Here is a more fancy form of metric space.
+    \begin{example}
+    $\dR^2$ with the function $\rho(f,g) = \int_{a}^{b} |f-g| \,dx$ where $f,g$ are functions of $x$
+    \end{example}
+    \begin{proof} Note that this example is the area between two curves. It is evident that the concept of metric spaces is used in geometry.\\
+    Positive define: Since $|f-g| \geq 0$ for all real value function $f,g$ in $\dR^2$, then ${\rho(f,g) = \int_{a}^{b} |f-g| \,dx \geq 0}$ where $\rho(f,g) =0 \iff f=g$.\\
+    Symmetric: Since $|f-g| = |g-f|$, then $\rho(f,g) = \rho(g,f)$.\\
+    Triangle inequality: Let $h$ be a function in $\dR^2$. We have:
+        \begin{align*}
+        \rho(f, h) + \rho(h, g) &= \int_{a}^{b} |f-h| \,dx + \int_{a}^{b} |h-g| \,dx\\
+                                &= \int_{a}^{b} (|f-h|+|h-g|) \,dx\\
+                                &\geq \int_{a}^{b} |f-h + h-g| \,dx\\
+                                &= \int_{a}^{b} |f-g| \,dx\\
+                                &= \rho(f,g)
+        \end{align*}
+        \tabb Hence, $\rho(f,g) \leq \rho(f, h) + \rho(h, g)$
+    \end{proof}
+\section{Types of Metric Spaces}
+    Metric spaces have various forms and can be classified into different types.  In this study, we discover three types which are discrete, continuous, and norm-induced metric spaces.
+
+    \subsection{Discrete Metric Spaces}
+    A metric space is a discrete metric space if the neighborhood of a point only contains itself. That is, $\exists \epsilon_0>0$ such that ${\{x|\rho(x,y) \leq \epsilon_0\} = \{x\}}$.
+    \begin{example} \label{discrete me}
+        The set S is a metric space that is defined by $\rho: S \times S \longrightarrow \dR$ such that\\
+        \begin{equation}
+        \rho(x,y)=
+        \begin{cases}
+            0 & \text{if } x = y,\\
+            1 & \text{if } x \neq y.
+        \end{cases}
+    \end{equation}
+    \begin{proof}
+        Positive definite: For $x, y \in S$, it is always true that $\rho(x, y) \geq 0$ where $\rho(x,y)=0 \iff x=y$.\\
+        Symmetric: We observe that 0 and 1 are the only solutions of $\rho(x, y)$ such that the position of x and y are not important. Therefore, ${\rho(x, y) = \rho(y, x)}$.\\
+        Triangle inequality: Let $z \in S$.\\
+       \hspace*{4cm} Since $max\{\rho(x,y)\}_{x,y \in S} = 1$. We have the following cases:\\
+       \hspace*{2cm} Case $x=y=z$: Then $\rho(x, z) + \rho(z, y) =0$. And at the same time, $\rho(x,y) = 0$.\\
+        \hspace*{4cm}So $\rho(x, z) + \rho(z, y) = \rho(x,y)$.\\
+        \hspace*{2cm} Case $x \neq y \neq z$: Then $\rho(x, y) = 1 < \rho(x, z) + \rho(z, y) = 1 + 1 = 2$\\
+        \hspace*{2cm} Case one is difference:\\
+        \hspace*{4cm}Assume x = y and $x \neq z$. \\
+        \hspace*{4cm} Then, ${ \rho(x, y) = 0 < \rho(x, z) + \rho(z, y) = 2}$\\
+        \hspace*{4cm}Assume $x \neq y$ and, WLOG, $x = z$. \\
+        \hspace*{4cm} Then, $ \rho(x, y) = \rho(x, z) + \rho(z, y) = 1$\\
+        \hspace*{2cm}Therefore, $\rho(x,y) \leq \rho(x, z) + \rho(z, y)$.
+        \end{proof}
+    \end{example}
+
+     \subsection{Continuous Metric Spaces}
+     A metric space is a continuous metric space if $\forall \epsilon>0, \exists y $ such that $\rho(x,y) = \epsilon$.
+    \begin{example} \label{absolute ms}
+         $\dR$ is a metric space with the function $\rho(x, y) = |x-y|$ for $x,y \in \dR$
+    \begin{proof}
+        Positive definite: For $x, y \in \dR$, it is always true that ${\rho(x,y) = |x-y| \geq 0}$ where $\rho(x,y)=0 \iff x=y$.\\
+        Symmetric: By definition of absolute value, we have:
+        \begin{align*}
+        \rho(x,y) &= |x-y| \\
+                  &= |-(x-y)|\\
+                  &= |y-x| \\
+                  &= \rho(y,x)
+        \end{align*}
+        Triangle inequality: Let $z \in \dR$. We have:
+        \begin{align*}
+        \rho(x,z) + \rho(z,y) &= |x-z| + |z-y|\\
+                              &\geq |x-z+z-y| = |x-y| = \rho(x,y)
+        \end{align*}
+        Therefore, $\rho(x,y) \leq \rho(x, z) + \rho(z, y)$.
+        \end{proof}
+    \end{example}
+    
+     \subsection{Norm Induced Metric Spaces}
+    
+    \begin{definition}
+      A norm is a real-valued function defined on the vector space $X,$ commonly denoted by $\vec{x}\to \|x\|,$
+     that satisfies, for every vector $\vec{x}$ and scalar $k,$
+     \begin{itemize}
+         \item  $\|\vec{x}\| \geq 0$  
+         \item $\|\vec{x}\|=0$ implies $\vec{x}=\vec{0}, $ 
+         \item  $\|\vec{k x}\|=|k|\|\vec{ x}\|$ 
+         \item  The triangle inequality: $\lVert \vec{x} + \vec{y} \rVert \leq \lVert \vec{x} \rVert+\lVert \vec{y} \rVert $ for any vector $\vec{y}.$
+     \end{itemize}
+     A vector spaced is a normed space if it is equipped with a norm.
+    \end{definition} 
+     We first present two familiar examples of metric space whose metric are induced by norms.
+     \begin{example}\label{normed vec}
+     $\dR$ is a normed space with the norm ${ \lVert \vec{x} \rVert }=|x|$, here $\vec{x}=x$.
+     \end{example}
+     \begin{proof}
+     Observe that, in $\dR$, $\lVert \vec{x} \rVert = |x|\geq 0$ and $\lVert \vec{x} \rVert=0$ only if $x=0$.\\
+     Also, $\lVert \vec{kx} \rVert = |kx|=|k||x|=|k|\lVert \vec{x} \rVert.$ Furthermore
+     $\lVert \vec{x} + \vec{y} \rVert = |x+y|\leq|x|+|y|=\lVert \vec{x} \rVert+\lVert \vec{y} \rVert.$\end{proof}
+
+     \begin{example}
+         $\dR^2$ is a normed space with the norm $\lVert\vec{v}\rVert = \sqrt{{v_1}^2 +{v_2}^2}$ where $\vec{v}=<v_1,v_2> \in \dR^2$.
+    \begin{proof}
+        Because ${\| \vec{v} \|}_2 = \sqrt{{v_1}^2 +{v_2}^2}\geq 0.$ ${\| \vec{v} \|}_2 = \sqrt{{v_1}^2 +{v_2}^2}= 0$, if and only if  $\vec{v}=\vec{0}.$ Also, $\| \vec{kv} \|_2 = \sqrt{{(k v_1)}^2 +{(k v_2)}^2}=|k| \sqrt{{v_1}^2 +{v_2}^2}=|k|{\| \vec{v} \|}_2.$
+        Finally, ${\| \vec{v}-\vec{u} \|}_2 = \sqrt{{v_1-u_1}^2 +{v_2-u_2}^2}\leq \sqrt{{v_1}^2 +{v_2}^2}+\sqrt{{u_1}^2 +{u_2}^2}.$
+    \end{proof}
+    \end{example}
+     Every normed vector space is a metric space. However, the reverse does not hold. 
+    \begin{theorem} If $X$ is a normal space then $\rho: X\times X\to \dR^+$ is defined by
+     $\rho(\vec{x},\vec{y})=\lVert \vec{x} -\vec{y}\rVert$ is a metric on $X.$
+     \end{theorem}
+     \begin{proof}
+     Proof is trivial, we omit it here.   
+     \end{proof}
+     The following is an example of a metric space whose metric is not induced by a norm.
+    \begin{example}
+     The metric  $\rho(x, y) = \begin{cases}
+            0 & \text{if } x = y,\\
+            1 & \text{if } x \neq y.\end{cases}$ on $\dR$ is not induced by any norm.
+    \end{example}
+    \begin{proof}
+    To the contrary, suppose that $\rho(x, y)=\lVert x - y\rVert.$   Let $x\neq 0$ we have $\rho(x, 0)=\lVert x\rVert=1$. So, $\rho(2x, 0)=\lVert 2x\rVert=2\lVert x\rVert=2$. (Contradiction)
+    \end{proof}
+ 
+
+\section{Openness and Closeness}
+In this section, we discuss the topological concepts of openness and closeness of a subset of a metric space. We begin with the definition of open and closed balls.
+\begin{definition} \cite{s1}
+    Let $a \in X$ and $r>0$. The \textit{open ball} (in $X$) with \textit{center} $a$ and \textit{radius} $r$ is the set\\
+    \hspace*{4.5cm} $B_r(a) := \{x \in X: \rho(x,a) <r\}$,\\
+    and the \textit{closed ball} (in $X$) with \textit{center} $a$ and \textit{radius} $r$ is the set\\
+    \hspace*{4.5cm} $\{x \in X: \rho(x,a) \leq r\}$.
+\end{definition}
+\begin{example}
+Recall that $\dR$ is a metric space with $\rho(x,y) = |x-y|$.\\
+$B_2(0) = (-2,2)$ is an open ball in $\dR$ because $\forall x \in B_2(0), \text{ then } \rho(x,0) < 2$.\\
+$\overline{B}_1(0)=[-1,1]$ is a closed ball in $\dR$ because for $x \in [-1,1] $, $\rho(x,0) \leq 1$.
+\end{example}
+
+With the help of an open ball, we can define the open and closed set below.
+\begin{definition} \cite{s1}
+    i) A set $V \subseteq X$ is said to be \textit{open} if and only if for every $x \in V$ there is an $\epsilon > 0$ such that the open ball $B_\epsilon(x)$ is contained in $V$.\\
+    ii)  A set $E \subseteq X$ is said to be \textit{closed} if and only if $E^c := X\backslash E=\text{all elements that are not in E} $ is open. We call  $E^c$ the complement of $E.$ \label{open_close}
+\end{definition}
+
+\begin{proposition} \cite{s1}
+    \textit{Every open ball is open, and every closed ball is closed.}
+\end{proposition}
+\begin{proof}
+    Let $B_r(a)$ be an open ball, $x \in B_r(a)$, and $\epsilon = r-\rho(x,a)$.\\
+    For $y \in B_\epsilon(x)$, by the Triangle Inequality and chosen $\epsilon$, we have:
+        \begin{align*}
+        \rho(y,a) &\leq \rho(y,x) + \rho(x,a) \\
+                  &< \epsilon + \rho(x,a)\\
+                  &= r
+        \end{align*}
+    Thus, $y \in B_r(a)$. In other words, $B_\epsilon(x) \subseteq B_r(a)$. By Definition \ref{open_close}, $B_r(a)$ is open.\\
+    Hence, every open ball is open.\\
+    Similarly, the set $\{x \in X : \rho(x,a) > r\}$ is open which makes its complement ${\{x \in X : \rho(x,a) \leq r\}}$ closed.\\
+    In other words, every closed ball is closed.
+\end{proof}
+   % \pagebreak
+\begin{proposition} \cite{s1}
+    \textit{If $a \in X$, then $X \backslash \{a\}$ is open and $\{a\}$ is closed.}
+\end{proposition}
+\begin{proof}
+    Let $E := \{a\}$ and $x \in E^c$. Choose $\epsilon = \rho(x,a)$.
+    Then, $a$ does not belong to the open ball of center x and radius $\epsilon$, $a \notin B_\epsilon(x)$. So, $B_\epsilon(x) \subseteq E^c$ or $B_\epsilon(x) \subseteq X \backslash \{a\}$. \\
+    By Definition \ref{open_close}, $X \backslash \{a\}$ is open.\\
+    Hence, $\{a\}$, as the complement of $X \backslash \{a\}$, is closed.
+\end{proof}
+It is a common misunderstanding that a set is either open or closed. However, there are some sets that are neither open nor closed. Indeed, some sets are both open and closed.
+\begin{proposition} \cite{s1}
+    \textit{In an arbitrary metric space, the empty set $\emptyset$ and the whole space X are both open and closed.}
+\end{proposition}
+\begin{proof}
+    Because $\emptyset$ contains no point, every point $x \in \emptyset$ satisfies $B_\epsilon(x) \subseteq \emptyset$. So, $\emptyset$ is open. (Definition \ref{open_close})\\
+    Consider the whole space $X$, $B_\epsilon(x) \subseteq X$ for all $x \in X$ and all $\epsilon >0$. So, $X$ is open.\\
+    Observed that $X = \emptyset^c$ and $\emptyset = X^c$. Thus, it is sufficient to conclude that $\emptyset$ and $X$ are closed.\\
+    Therefore, $\emptyset$ and $X$ are both open and closed.
+\end{proof}
+Openness and Closeness also associate with the limit of a convergent sequence.
+\begin{theorem} \cite{s1}
+    Let $E \subseteq X$. Then $E$ is closed if and only if the limit of every convergent sequence $x_k \in E$ satisfies\\
+    \hspace*{5cm} $\lim_{x \to \infty} x_k \in E$ \label{limit_theorem}
+\end{theorem}
+\begin{proof}
+    If $E = \emptyset$, then Theorem \ref{limit_theorem} is vacuously true.\\
+    Therefore, assume that $E \neq \emptyset$.\\
+    \textbf{ \textit{Prove that if $E$ is closed, then the limit of every convergent sequence $x_k \in E$ satisfies $\lim_{x \to \infty} x_k \in E$}}\\
+    \tab To the contrary, assume that $E$ is closed but some sequence $x_n \in E$ converges to $x \notin E$. So, $x \in E^c$\\
+    \tab Since $E$ is closed, $E^c$ is open. There is an $N \in \dN$ such that $n \geq N$ implies $x_n \in E^c$. But, by assumption, $x_n \in E$. So, this is a contradiction.\\
+    \textbf{ \textit{Prove that the limit of every convergent sequence $x_k \in E$ satisfies $\lim_{x \to \infty} x_k \in E$ then $E$ is closed}}\\
+    \tab Assume that $E \neq \emptyset$ such that every convergent sequence of $E$ has a limit in $E$. To the contrary, assume that $E$ is not closed.\\
+    Then, $E \neq X$ since $X$ is both open and closed. It follows that $E^c \neq \emptyset$, and that $E^c$ is not open. Thus, there exists $x \in E^c$ such that there is no ball $B_r(x)$ in $E^c$.\\
+    Let $x_k \in B_{1/k}(x) \cap E$ for $k = 1,2,...$. By definition of open ball, $x_k \in E$ and $\rho(x_k,x)<1$ for all $k \in \dN$. Since ${1/k} \rightarrow 0$ as $k \rightarrow \infty$, by the Squeeze Theorem, we can conclude that $\rho(x_k, x) \rightarrow 0$ as $k \rightarrow \infty$. Thus, $x \in E$, which is a contradiction.
+\end{proof}
+%\pagebreak
+\begin{proposition}\cite{s1}
+The discrete space contains bounded sequences which have no convergent subsequences.
+\end{proposition}
+\begin{proof}
+    Let $X = \dR$ be the discrete metric space in Example \ref{discrete me}.\\
+        \begin{equation}
+        \rho(x,y)=
+        \begin{cases}
+            0 & \text{if } x = y,\\
+            1 & \text{if } x \neq y.
+        \end{cases}
+        \end{equation}
+Because $\rho(0, k) =1, \forall k \in \dN$, then $\{k\}$ is bounded sequence in $X$.\\
+To the contrary, assume that there exists a convergent sequence $k_1<k_2<...$ where $k \in \dN$ and $x \in X$ such that $k_j \rightarrow x$ as $j \rightarrow \infty$.\\
+Thus, there is an $N \in \dN$ such that $\rho(k_j,x) <1$ for $j \geq N$. In other words, $k_j = x \forall j \geq N$. (Contradiction)\\
+\end{proof}
+\begin{definition} \cite{s1}
+    A metric space $X$ is said to be \textit{complete} if and only if every Cauchy sequence $x_n \in X$ converges to some point in $X$. \label{complete_thrm}
+\end{definition}
+\begin{example}
+Recall that every Cauchy sequence of real numbers is bounded. By Bolzano-Weierstrass, each of them has a convergent subsequence. Hence, every Cauchy sequence of real numbers is convergent.\\
+Therefore, $\dR$ with function $\rho(x,y) = |x-y|$ is a metric space such that every Cauchy sequence $x_n \in R$ converges to some point in $\dR$. Hence, it is a complete metric space.
+\end{example}
+\begin{theorem} \cite{s1}
+    Let $X$ be a complete metric space and $E$ be a subset of $X$. Then $E$ (as a subspace) is complete if and only if $E$ (as a subset) is closed.
+\end{theorem}
+\begin{proof}
+    \textbf{ \textit{Prove that if $E$ is complete, then $E$ is closed}}.\\
+    \tab Assume that $E$ is complete and $x_n \in E$ converges. Since $x_n \in E$ converges, $x_n$ is Cauchy. Besides, for $E$ is complete, the limit of $\{x_n\}$ is in $E$.\\
+    Thus, $E$ is closed. (Theorem \ref{limit_theorem})\\
+    \textbf{ \textit{Prove that is $E$ is closed, then $E$ is complete.}}\\
+    \tab Assume that $E$ is closed and $x_n \in E$ is Cauchy in $E$.\\
+    Since $E$ has the same metrics as $X$ does, for $E \subseteq X$, $\{x_n\}$ is Cauchy in $E$ also means $\{x_n\}$ is Cauchy in $X$.\\
+    Given that $X$ is complete, we have $x_n \rightarrow x$, as $n \rightarrow \infty$, for some $x \in X$. Also, hypothesis gives $E$ is closed, so $x \in E$.\\
+    Thus, by Definition \ref{complete_thrm} $E$ is complete.
+\end{proof}
+The following theorem of unions and intersections of open and closed sets designates the relation between a metric space and a topological space, which is discussed later.
+\begin{theorem} \label{collection of open sets}
+Let $X$ be a metric space.\\
+    i) If $\{V_\alpha\}, {\alpha \in A, \text{an index set}}$ is any collection of open sets in $X$, then\\
+\hspace*{6cm} $\bigcup_{\alpha \in A}V_\alpha$\\
+is open.\\
+    ii) If $\{V_k := 1,2,...,n\}$ is a finite collection of open sets in $X$, then\\
+\hspace*{6cm} $\bigcap_{k=1}^{n}V_k := \bigcap_{k \in \{1,2,..,n\}}V_k$\\
+is open.\\
+    iii) If $\{E_\alpha\}, {\alpha \in A, \text{an index set}}$ is any collection of closed sets in $X$, then\\
+\hspace*{6cm} $\bigcap_{\alpha \in A}E_\alpha$\\
+is closed.\\
+    iV) If $\{E_k := 1,2,...,n\}$ is a finite collection of closed sets in $X$, then\\
+\hspace*{6cm} $\bigcup_{k=1}^{n}E_k := \bigcup_{k \in \{1,2,..,n\}}E_k$\\
+is closed.\\
+    v) If $V$ is open in $X$ and $E$ is closed in $X$, then ${V \backslash E}$ is open and ${E \backslash V}$ is closed.
+\end{theorem}
+\begin{proof}
+i) Let $x \in \bigcup_{\alpha \in A}V_\alpha$. Then, $x \in V_\alpha$ which is open for some $\alpha \in A$. Thus, there is an $r>0$ such that $B_r(x) \subseteq {\bigcup_{\alpha \in A}V_\alpha}$.\\
+By definition \ref{open_close}, $\bigcup_{\alpha \in A}V_\alpha$ is open.\\
+ii) Let $x \in \bigcap_{k=1}^{n}V_k$. Then $x \in V_k$ which is open for some $k =1,2,...,n$. Thus, there are some numbers $r_k > 0$ such that $B_{r_k}(x) \subseteq V_k$. For any $r \in r_k$, $r>0$ and $B_r(x) \subseteq V_k$.\\
+By definition \ref{open_close}, $\bigcap_{k=1}^{n}V_k$ is open.\\
+iii) By using DeMorgan's Law and the result from part i, we can conclude that:\\
+\hspace*{6cm} $(\bigcap_{\alpha \in A}E_\alpha)^c = \bigcup_{\alpha \in A}E_\alpha^c$\\ 
+is open. Hence, $\bigcap_{\alpha \in A}E_\alpha$ is closed.\\
+iv) By using DeMorgan's Law and the result from part ii, we can conclude that:\\
+\hspace*{6cm} $(\bigcup_{k=1}^{n}E_k)^c = \bigcap_{k=1}^{n}E_k^c$\\
+is open. Hence, $\bigcup_{k=1}^{n}E_k$ is closed.\\
+v) Recall that $V$ is open (as defined) and so, $V^c$ is closed. Similarly, $E$ is closed, and $E^c$ is open.\\
+Also, note that $V \backslash E = V \cap E^c$ and $E \backslash V = E \cap V^c$.\\
+By part ii, $V \backslash E$, the intersection of open sets, is open.\\
+By part iii, $E \backslash V$, the intersection of closed sets, is closed.
+\end{proof}
+\section{Limits of Functions}
+The theory of limits of function takes a metric space $X$ to another metric space $Y$. By definition, we can guess that in any metric space, $f(x) \rightarrow L$ as $x \rightarrow a$ if for every ${\epsilon>0, \text{ } \exists \delta>0}$ such that\\
+\hspace*{4cm} $0<\rho(x,a)<\delta$ implies $\tau(f(x),L)<\epsilon$.\\
+However, there may not exist $x$ such that $0<\rho(x,a)<\delta$. Therefore, to prevent the collapse of this theory, we have the following idea.
+\begin{definition}\cite{s1}
+    A point $a \in X$ is said to be a \textit{cluster point} (of X) if and only if $B_\delta(a)$ contains infinitely many points for each $\delta >0$. \label{cluster}
+\end{definition}
+\begin{example}
+     Every point in the interval $[0,2]$ is a cluster point of the open interval $(0,2)$.
+\end{example}
+\begin{proof}
+    Let $x_0 \in [0,2]$ and $\delta >0$. We have:\\
+    \tab $x_0 + \delta >0$ and $x_0 - \delta <2$\\
+    Write $(a,b) := (x_0 - \delta, x_0 + \delta) \cap (0,2)$ which contains infinitely many point such as $\frac{a+b}{2}, \frac{3a+b}{2},...$\\
+    Therefore, by Definition \ref{cluster}, $x_0$ is a cluster point.
+\end{proof}
+\begin{definition}\cite{s1}
+    Let $E$ be a nonempty subset of $X$ and $f : E \rightarrow Y$.\\
+    i) $f$ is said to be \textit{continuous at a point} $a \in E$ if and only if given $\epsilon>0$ there is a $\delta > 0$ such that\\
+    \hspace*{4cm}$\rho(x,a) < \delta$ and $x \in E$ imply $\tau(f(x), f(a)) <\epsilon$.\\
+    ii) $f$ is said to be \textit{continuous on} $E$ (notation: $f : E \rightarrow Y$ is continuous) if and only if $f$ is continuous at every $x \in E$.
+\end{definition}
+This definition is valid regardless $a$ is a cluster point or not. The following theorem shows that the composition of continuous functions is also continuous.
+\begin{theorem}\cite{s1}
+    Suppose that $X,Y,$ and $Z$ are metric spaces and that $a$ is a cluster point of $X$. Suppose further that $f:X \rightarrow Y$ and $g:f(X) \rightarrow Z$. If $f(x) \rightarrow L$ as $x \rightarrow a$ and $g$ is continuous at $L$, then\\
+    \hspace*{5cm}  $\lim_{x \to a} (g \circ f)(x) = g(\lim_{x \to a}f(x))$
+\end{theorem}
+    %\pagebreak
+\begin{proof}
+Since $g$ is continuous at $L$, we have:\\
+For any $\epsilon>0$, there exists $\delta>0$ such that $|y-L| < \delta$ imply\\
+\hspace*{5cm} $|g(y)-g(L)|<\epsilon$\\
+Hence, $\lim_{x \rightarrow a}g(y)=g(L)$\\
+Since $\lim_{x \rightarrow a} f(x) =L$, we have:\\
+For such $\delta >0$, there exists $\delta_1 >0$ such that $0<|x-a|<\delta_1$ imply\\
+\hspace*{5cm} $|f(x)-L| < \delta$\\
+Given that $\lim_{x \rightarrow a} f(x) =L$, so:\\
+\hspace*{5cm} $\lim_{x \rightarrow a} (g \circ f)(x) = g(\lim_{x \rightarrow a} f(x))$
+\end{proof}
+\section{Compact Sets}
+In order to define compactness, we must first introduce covering.
+\begin{definition}\cite{s1}
+    Let $\nu = \{V_\alpha\}_{\alpha \in A}$ be a collection of subsets of a metric space $X$ and suppose that $E$ is a subset of $X$.\\
+    i) $\nu$ is said to \textit{cover} $E$ (or be a \textit{covering} of $E$) if and only if\\
+    \hspace*{5cm} $E \subseteq \bigcup_{\alpha \in A} V_\alpha$\\
+    ii) $\nu$ is said to be an \textit{open covering} of $E$ if and only if $\nu$ covers $E$ and each $V_\alpha$ is open.\\
+    iii) Let $\nu$ be a covering of $E$. $\nu$ is said to have a \textit{finite} (respectively, \textit{countable}) \textit{subcovering} if and only if there is a finite (respectively, countable) subset $A_0$ of $A$ such that $\{V_\alpha\}_{\alpha \in A_0}$ covers $E$.
+\end{definition}
+\begin{example}
+     $\nu = \{(\frac{1}{k+1},\frac{k}{k+1})\}_{k \in \dN}$ is an open covering of (0,1).\\
+     $\nu$ is a covering of $(0,1)$ since $(0,1) \subseteq \bigcup_{k \in \dN} (\frac{1}{k+1},\frac{k}{k+1})$\\
+     And since $(\frac{1}{k+1},\frac{k}{k+1})$ is open for every $k \in \dN$, $\nu$ is an open covering.
+\end{example}
+The above example shows a covering that has no finite subcover. Indeed, an open covering of any set may or may not have a finite subcovering. Those that have finite subcoverings are called compact sets.
+\begin{definition} \label{compact}\cite{s1}
+    A subset $H$ of a metric space $X$ is said to be \textit{compact} if and only if every open subcovering of $H$ has a finite subcover.
+\end{definition}
+
+\begin{proposition}\cite{s1}
+\textit{The empty set and all finite subsets of a metric space are compact.}
+\end{proposition}
+
+\begin{proof}
+Observe that the empty set needs no set covering it. So, by Definition \ref{compact}, it is trivially compact.\\
+For an arbitrary finite set $H$, it can be covered by finitely many sets. Because $H$ is finite, so the number of sets to cover every element of $H$ is finite. By Definition \ref{compact}, $H$ is compact.
+\end{proof}
+\pagebreak
+\begin{proposition} \label{closed compact}\cite{s1}
+\textit{A compact set is always closed.}
+\end{proposition}
+\begin{proof}
+    To the contrary, suppose that $H$ is compact but not closed.\\
+    Then, H is nonempty and has a convergent sequence $x_k$ whose limit $x$ is not in $H$.\\
+    For each $y \in H$, set $r(y) := \frac{\rho(x,y)}{2}$. As $x \notin H$, then $r(y)>0$. Hence, $B_{r(y)}(y)$ is open and contains y. In other words, $B_{r(y)}(y): y \in H$ is an open covering of $H$.\\
+    Since $H$ is compact, there exist some points $y_j$ and radii $r_j := r(y_j)$ such that $\{B_{r(j)}(y_j) : j=1,2,...,N\}$ cover $H$.\\
+    Set $r := min\{r_1,...,r_N\}$. Since $x_k \rightarrow x$ as $k \rightarrow \infty$, it follows $x_k \in B_r(x)$ for large $k$. Since $x_k \in B_r(x) \cap H$ implies $x_k \in B_{r_j}(y_j)$ for some $j \in \dN$ and by Triangle Inequality, we have:
+    \begin{align*}
+    r_j \geq \rho(x_k,y_j) &\geq \rho(x,y_j) - \rho(x_k,x)\\
+                           &= 2r_j - \rho(x_k,x)\\
+                           &> 2r_j - r\\
+                           &\geq 2r_j - r_j\\
+                           &= r_j
+    \end{align*}
+    So, $r_j > r_j$. (Contradiction)\\
+    Therefore, $H$ is closed.
+\end{proof}
+    %\pagebreak
+\begin{theorem} \label{compact closed bounded}\cite{s1}
+Let $H$ be a subset of a metric space $X$. If $H$ is compact, then $H$ is closed and bounded.
+\end{theorem}
+\begin{proof}
+Let $H$ be a compact subset of a metric space $X$. By Proposition \ref{closed compact}, $H$ is closed.\\
+Take $b \in X$ and note $\{B_n(b):n \in N\}$ covers $X$.\\
+As given that $H$ is compact, we have:\\
+\hspace*{4.5cm} $H \subset \bigcup_{n=1} ^{^N}B_n(b)$ for some $N \in \dN$.\\
+Hence, $H \subset B_N(b)$ or $H$ is bounded.\\
+Therefore, $H$ is closed and bounded.
+\end{proof}
+
+\begin{definition}\cite{s1}
+    A metric space is said to be \textit{separable} if and only if it contains a countable dense subset (i.e., if and only if there is a countable set $Z$ of $X$ such that for every point $a \in X$ there is a sequence $x_k \in Z$ such that $x_k \rightarrow a$ as $k \rightarrow \infty$).
+\end{definition}
+
+\begin{example}
+Recall that $\dR$ is a metric space with the function $\rho(x,y) = |x-y|$ where $x, y \in \dR$ and is separable. We also have that $\dQ$, as a subset of $\dR$, is dense in $\dR$ because every open interval contains rational rational numbers.
+\end{example}
+In fact, every Euclidean space is separable. Besides, separability is not an unusual requirement.
+
+\section{Connected Sets}
+\begin{definition}  \label{connected set}\cite{s1}
+    Let $X$ be a metric space.\\
+    i) A pair of nonempty open sets $U, V$ in $X$ is said to \textit{separate} $X$ if and only if $X=U \cup V$ and $U \cap V = \emptyset.$\\
+    ii) X is said to be \textit{connected} if and only if $X$ cannot be separated by any pair of open sets $U,V$.
+\end{definition}
+   % \pagebreak
+\begin{example}
+$\dR$ under discrete metric is separate because $(-\infty, 0]$ and $(0, \infty)$ are both open subsets of $X$ such that $X=(-\infty, 0] \cup (0, \infty)$ and $(-\infty, 0] \cap (0, \infty) = \emptyset$.\\
+$\dR$ under a continuous metric such as $|x-y|$ is connected because the metric itself is continuous. So, S is not separated by any pair of open sets $U,V$.
+\end{example}
+Trivially, there are always two sets of an arbitrary metric space that are connected:\\
+1) The empty set is connected because it cannot be the union of any two nonempty sets.\\
+2) The singleton $E =\{e\}$ is connected because it only has one element which cannot be written as a union of two nonempty sets.
+
+\begin{definition}\cite{s1}
+    Let $X$ be a metric space and $E \subseteq X$.\\
+    i) A set $U \subseteq E$ is said to be \textit{relatively open} in $E$ if and only if there is a set $V$ open in X such that $U = E \cap V$.\\
+    ii) A set $A \subseteq E$ is said to be \textit{relatively close} in $E$ if and only if there is a set $C$ closed in X such that $A = E \cap C$.
+\end{definition}
+\begin{example}
+Consider the set $B=\{(x,y):-1 \leq x \leq 1$ and $-|x| < y < |x| \}$.\\
+$B$ is relatively open in the subspace $E_1 := \{(x,y):-1 \leq x \leq 1\}$ because B is the intersection of $E_1$ and the open set $V=\{(x,y):-|x| < y < |x| \}$.\\
+$B$ is relatively closed in the subspace $E_2 := \{(x,y):-|x| < y < |x| \}$ because B is the intersection of $E_2$ and the closed set $V=\{(x,y):-1 \leq x \leq 1 \}$.
+\end{example}
+Since a subset $A$ of $E$ is open (respectively, closed) in the subspace $E$ if and only if it is relatively open (respectively, relatively closed) in the set $E$, these definitions codify the subspace topology.\\
+\begin{theorem}\cite{s1}
+    A subset $E$ of $\dR$ is connected if and only if $E$ is an interval.
+\end{theorem}
+\begin{proof}
+    \textbf{\textit{If $E$ is connected, then $E$ is an interval.}}\\
+    Suppose that $E$ is a connected subset of $\dR$.\\
+    If $E$ is empty or $E$ is a singleton, then $E$ is a degenerate interval. Thus, let's assume $E$ has at least 2 points.\\
+    Let $a =$ inf$E$ and $b =$ sup$E$. Suppose that $a,b \notin E$, in other words, $E \subseteq (a,b)$.\\
+    If $E \not= (a,b)$, then there exist a point $x$ such that $x \notin E$ and $x \in (a,b)$. Thus, $E \cap (a,x) \not= \emptyset$ and $E \cap (x,b) \not= \emptyset$. (Approximation Property) So, we have $E \subseteq (a,x) \cup (x,b)$.\\
+    Therefore, the two open sets $(a,x)$ and $(x,b)$ separate $E$. (Contradiction)\\ 
+    \textbf{\textit{If $E$ is an interval, then $E$ is connected.}}\\
+    Conversely, suppose that $E$ is an interval and not connected.\\
+    Then, by Definition \ref{connected set}, $E$ is separated by the nonempty sets $U,V$ which are relatively open in $E.$ It follows that $E=U \cup V$ and $U \cap V = \emptyset$.\\
+    Since $U, V$ are nonempty, let $x_1 \in U$ and $x_2 \in V$ and suppose $x_1 < x_2$. From assumption, $x_1, x_2 \in E$, so $I := [x_1,x_2] \subseteq E$. Let $f: I \rightarrow \dR$ such that:\\
+    \begin{equation}
+        f(x)=
+        \begin{cases}
+            0 & \text{if } x \in U\\
+            1 & \text{if } x \in V.
+        \end{cases}
+    \end{equation}
+    Because $U \cap V = \emptyset$, $f$ is well-defined, so $f$ is continuous on $I$.\\
+    Take $x_0 \in I$. Since $I \subseteq E = U \cup V$, it can be concluded that $x_0 \in U$ or $x_0 \in V$.\\
+    WLOG, let $x_0 \in V$. Let $y_k \in I$ and $y_k \rightarrow x_0$ as $k \rightarrow \infty$. As $V$ is relatively open, there exists an $\epsilon >0$ such that $(x_0 - \epsilon, x_0 + \epsilon) \cap E \subset V$.\\
+    Since $y_k \in E$ and $y_k \rightarrow x_0$, $y_k \in V$ for large $k$. So, $f(y_k)=1=f(x_0)$ for large k. By the Sequential Characterization of Continuity, $f$ is continuous at $x_0$.\\
+    Therefore, $f$ is continuous on $I$.\\
+    By the Intermediate Value Theorem, $f$ takes the values $\frac{1}{2}$ somewhere on $I$. (A contradiction to the assumption that either $f=0$ or $f=1$).\\
+    \tabb Therefore, a subset $E$ of $\dR$ is connected if and only if $E$ is an interval.
+\end{proof}
+\section{Continuous Functions}
+\begin{theorem}\cite{s1}
+    If $E$ is connected in $X$ and $f:E \rightarrow Y$ is continuous on $E$, then $f(E)$ is connected in $Y$.
+\end{theorem}
+\begin{proof}
+    To the contrary, suppose that $E$ is connected in $X$ and $f:E \rightarrow Y$ is continuous on $E$ but $f(E)$ is not connected in $Y$. So, by Definition \ref{connected set} $f(E)$ is separated by two nonempty open subsets $U, V$ of $E$.\\
+    Note that $f^{-1}(U) \cap E$ and $f^{-1}(V) \cap E$ are relatively open in $E$.\\
+    Since $f(E) = U \cup V$, it follows that $E =(f^{-1}(U) \cap E) \cup (f^{-1}(V) \cap E)$\\
+    Because $U \cap V = \emptyset$, so $f^{-1}(U) \cap f^{-1}(V) = \emptyset$. Thus $E$ is separated by the pair $U, V$ of relative open sets.\\
+    Hence, by Definition \ref{connected set}, E is not connected. (Contradiction)
+    Therefore, If $E$ is connected in $X$ and $f:E \rightarrow Y$ is continuous on $E$, then $f(E)$ is connected in $Y$.
+\end{proof}
+\begin{theorem} \cite{s1} [EXTREME VALUE THEOREM]
+Let $H$ be a nonempty, compact subset of $X$ and suppose that $f:H \rightarrow \dR$ is continuous. Then\\
+\hspace*{4.5cm} $M:= sup\{f(x):x \in H\}$ and $m:= \text{inf}\{f(x):x \in H\}$\\
+are infinite real numbers and there exist points $x_M, x_m \in H$ such that $M = f(x_M)$ and $m = f(x_m)$.
+\end{theorem}
+\begin{proof}
+Assume that $H$ is a nonempty, compact subset of $X$ and $f$ is continuous. So, $f(H)$ is also compact.\\
+By Theorem \ref{compact closed bounded}, $f(H)$ is closed and bounded, which means $M$ is finite.\\
+By the Approximation Property, pick $x_k \in H$ such that $f(x_k) \rightarrow M$ as $k \rightarrow \infty$. Since $f(H)$ is closed, $M \in f(H)$.\\
+Therefore, there exists $x_M \in H$ such that $M = f(x_M)$.\\
+Similarly, there exist $x_m \in H$ such that $m = f(x_m)$.
+\end{proof}
+
+
+\section{Topological Spaces}
+In a metric space, we define openness and closeness with metric. However, we can also express openness and closeness without a metric in such a type of space called the topological space. An interesting question on this topic is which topological spaces can be metricized. And at the end of this section, we quote such a result.
+\begin{definition} \cite{s2} \label{topology def}
+    Let $X$ be a set. A \textit{topology} on $X$ is a collection $\tau$ of subsets of $X$ satisfying the following conditions\\
+    (T1) the total set, $X$, and the empty set, $\emptyset$, are elements of $\tau$;\\
+    (T2) if $\{U_\gamma\}_{\gamma \in \Gamma}$ is a (possibly infinite) family of elements of $\tau$, then\\
+    \hspace*{6.5cm} $\bigcup_{\gamma \in \Gamma}U_\gamma \in \tau$;\\
+    (T3) if $\{U_1,...,U_n\} \subseteq \tau$ is a finite family of elements of $\tau$, then\\
+    \hspace*{6.5cm} $\bigcap_{i=1}^n U_i \in \tau$.\\
+    A \textit{topological space} is a pair $(X, \tau)$ where $\tau$ is a topology on $X$.
+\end{definition}
+\pagebreak
+\begin{example}
+$(X, \tau)$ is a topological space where $X =\{1,2,3\}$ and $\tau = \{\emptyset, X, \{2\}, \{1,2\}, \{2,3\}\}$
+\end{example}
+The conditions (T1) and (T2) state that $\tau$ is closed under union and intersection.
+\begin{proof}
+(T1): As we observe, $X, \emptyset \in \tau$.\\
+(T2): From the given $\tau$, we have: $\bigcup_{\gamma=1}^{5}U_\gamma \in \tau$. That is the union of any elements of $\tau$ is also in $\tau$.\\
+(T3): Since any intersection of elements in $\tau$ is in $\tau$, we conclude that $\bigcap_{i=1}^5 U_i \in \tau$.\\
+Thus, $\tau$ is a topology. Hence, $(X, \tau)$ is a topological space.
+\end{proof}
+\begin{example}
+Let's consider the same set $X$ with a different $\tau$, say $\tau_0$.\\
+We have $X=\{1,2,3\}$ and $\tau_0=\{\emptyset, X, \{2\}, \{3\}\}$\\
+(T1): We can see that $\emptyset, X \in \tau_0$.\\
+(T2): $\{2\} \cup \{3\} = \{2,3\} \notin \tau_0$.\\
+Thus, $\tau_0$ is not a topology. Hence, the pair $(X, \tau_0)$ is not a topological space.
+\end{example}
+\begin{example}
+For a metric space $(X, \rho)$, let $\tau$ be the collection of all open subsets of $X$ which respect to metric $\rho$. By Theorem \ref{collection of open sets}, $\tau$ is a topology. Hence, the pair $(X, \tau)$ is a topological space.
+\end{example}
+Therefore, every metric space is a topological space.\\
+Here are some examples demonstrating that topological spaces are more general than metric spaces.
+\begin{example} \cite{s2}
+Let X be any set, $\tau_1$ be the collection of all subsets of $X$, and $\tau_2 = \{\emptyset, X\}$.\\
+Both $\tau_1$ and $\tau_2$ are topologies on $X$. Hence, $(X, \tau_1)$ and $(X, \tau_2)$ are both topological spaces. However, $\tau_1$ and $\tau_2$ represent different types of topologies.\\
+1) $\tau_1$ is the \textit{discrete topology} on $X$;\\
+2) $\tau_2$ is the \textit{indiscrete topology} on $X$.\\
+A discrete topology is the only topology on the finite set $X$ that is induced by a metric.
+\end{example}
+Because topological spaces are so abstract, there are several unexpected situations that could happen as we work with them. The following example is also known as "the line with two origins."
+\begin{example} \cite{s2} [THE LINE WITH TWO ORIGINS]\\
+    Let $\dR \cup \{z\}$ and\\
+    (1) $\tau_1 = \{U \subseteq \dR | U$ is open with Euclidean metric\}\\
+    (2) $\tau_2 = \{\emptyset\} \cup \{W=V \cup \{z\}| V \in \tau_1$ such that $\{0\} \notin V\}$.
+    (3) $\tau = \tau_1 \cup \tau_2$. That is there exists an element in $\tau$ that is a union $U \cup W$. This is a topology in $X$ because $\emptyset, X \in \tau$ and $\tau$ is closed under union and intersection.\\
+    This topology has the property: if $A, B \in \tau$ such that\\
+    (i) $0 \in A, z \notin A$; and\\
+    (ii) $x \in B, 0 \notin B$,\\
+    then $A \cap B \neq \emptyset$.\\
+    Therefore, it is impossible to separate 0 from $z$.
+\end{example}
+We end this section by quoting the famous Urysohn Metrization Theorem. A proof of this theorem is beyond scope of this paper.
+\begin{theorem}\cite{s5} Every second countable $T_3$ topological space is metrizable. 
+\end{theorem}
+
+\section{Conclusion}
+\hspace*{0.5cm} In conclusion, Metric Space is an important field of Mathematics. Although it has been over 100 years since Metric Spaces were introduced to the Mathematical society, the eagerness to better analyze them has always attracted maths lovers. The study of metric spaces is necessary to better understand the notion of distance. Their topological properties can be widely applied to a massive amount of geometry, set, and limit related problems.\\
+\tabb Besides, topological spaces are more abstract models of spaces where distance is not that essential. They allow us to have more diverse perspectives not only in math but also in many events or objects in life. We learn to connect nearly unrelated subjects to better contemplate this world. Therefore, we see that the study of Mathematics is not simply gaining education in math, but also a journey to harbor our intellectual spirits.
+\vfill
+\pagebreak
+
+\bibliographystyle{plain} 
+\begin{thebibliography}{10}
+
+\bibitem{s1} 
+Wade, William R.
+\newblock {\em An Introduction to Analysis}. 
+\newblock Fourth Edition, Pearson Prentice Hall, 2010.
+
+\bibitem{s2} 
+Gonzalez, Alex
+\newblock {\em Metric and Topological Spaces}. 
+
+\bibitem{s3} 
+Carlson, Stephan C.
+\newblock {\em Metric Space}. 
+\newblock Britannica.com, 2017.
+
+\bibitem{s4} 
+Carlson, Stephan C.
+\newblock {\em Hausdorff Space}. 
+\newblock Britannica.com, 2016.
+
+\bibitem{s5} 
+Khatchatourian, Ivan
+\newblock {\em Urysohn's metrization theorem}. 
+\newblock 2018.
+\end{thebibliography}
+
+
+
+
+
+\end{document}
